@@ -1,5 +1,6 @@
 package com.sparta.hanhaeblog.service;
 
+import com.sparta.hanhaeblog.dto.ModifiedResponseDto;
 import com.sparta.hanhaeblog.dto.PostRequestDto;
 import com.sparta.hanhaeblog.dto.PostResponseDto;
 import com.sparta.hanhaeblog.entity.Post;
@@ -24,10 +25,7 @@ public class PostService {
 
     @Transactional
     public PostResponseDto getPost(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
-        );
-
+        Post post = checkPost(id);
         return new PostResponseDto(post);
     }
 
@@ -39,20 +37,21 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponseDto update(Long id, PostRequestDto requestDto) {
-        Post post = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
-        );
+    public ModifiedResponseDto update(Long id, PostRequestDto requestDto) {
+        Post post = checkPost(id);
         post.update(requestDto);
-        return new PostResponseDto(post);
+        return new ModifiedResponseDto(post);
     }
 
     public String deletePost(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(
+        Post post = checkPost(id);
+        postRepository.delete(post);
+        return "게시글을 삭제했습니다.";
+    }
+
+    public Post checkPost(Long id) {
+        return postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
-        postRepository.delete(post);
-
-        return "게시글을 삭제했습니다.";
     }
 }

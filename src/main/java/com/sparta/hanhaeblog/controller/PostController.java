@@ -1,5 +1,6 @@
 package com.sparta.hanhaeblog.controller;
 
+import com.sparta.hanhaeblog.dto.ModifiedResponseDto;
 import com.sparta.hanhaeblog.dto.PostRequestDto;
 import com.sparta.hanhaeblog.dto.PostResponseDto;
 import com.sparta.hanhaeblog.entity.Post;
@@ -31,7 +32,7 @@ public class PostController {
     }
 
     @PutMapping("/api/post/{id}")
-    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+    public ModifiedResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.update(id, requestDto);
     }
 
