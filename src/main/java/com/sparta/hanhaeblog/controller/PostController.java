@@ -12,31 +12,32 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/api/posts")
+    @GetMapping("/posts")
     public List<PostResponseDto> getPosts() {
         return postService.getPosts();
     }
 
-    @GetMapping("/api/post/{id}")
+    @GetMapping("/post/{id}")
     public PostResponseDto getPost(@PathVariable Long id) {
         return postService.getPost(id);
     }
 
-    @PostMapping("/api/posts")
+    @PostMapping("/posts")
     public Post createPost(@RequestBody PostRequestDto requestDto) {
         return postService.createPost(requestDto);
     }
 
-    @PutMapping("/api/post/{id}")
+    @PutMapping("/post/{id}")
     public ModifiedResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.update(id, requestDto);
     }
 
-    @DeleteMapping("/api/post/{id}")
+    @DeleteMapping("/post/{id}")
     public String deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
         return postService.deletePost(id, requestDto);
     }
