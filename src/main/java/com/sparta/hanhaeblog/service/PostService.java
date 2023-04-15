@@ -39,14 +39,24 @@ public class PostService {
     @Transactional
     public ModifiedResponseDto update(Long id, PostRequestDto requestDto) {
         Post post = checkPost(id);
-        post.update(requestDto);
+        if(post.getPassword().equals(requestDto.getPassword())) {
+            post.update(requestDto);
+        }
+        else {
+            System.out.println("비밀번호가 일치하지 않습니다.");
+        }
         return new ModifiedResponseDto(post);
     }
 
-    public String deletePost(Long id) {
+    public String deletePost(Long id, PostRequestDto requestDto) {
         Post post = checkPost(id);
-        postRepository.delete(post);
-        return "게시글을 삭제했습니다.";
+        if(post.getPassword().equals(requestDto.getPassword())) {
+            postRepository.delete(post);
+            return "게시글을 삭제했습니다.";
+        }
+        else {
+            return "비밀번호가 일치하지 않습니다.";
+        }
     }
 
     public Post checkPost(Long id) {

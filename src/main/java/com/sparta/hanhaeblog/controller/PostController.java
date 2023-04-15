@@ -37,7 +37,7 @@ public class PostController {
     }
 
     @DeleteMapping("/api/post/{id}")
-    public String deletePost(@PathVariable Long id) {
-        return postService.deletePost(id);
+    public String deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+        return postService.deletePost(id, requestDto);
     }
 }
