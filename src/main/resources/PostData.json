@@ -1,0 +1,33 @@
+[
+  {
+    "title": "1등",
+    "author": "임슬기",
+    "contents": "내가 1등이다! 자주 올게요~",
+    "password": 1234
+  },
+  {
+    "title": "안녕하세요",
+    "author": "토마스",
+    "contents": "처음 왔어요. 반갑습니다.",
+    "password": 1111
+  },
+  {
+    "title": "우와",
+    "author": "테스터",
+    "contents": "글 잘 써지나요?",
+    "password": 4321
+  },
+  {
+    "title": "토요일이네요",
+    "author": "날씨요정",
+    "contents": "아침부터 비가 오고 날이 흐려요. 우산 챙기세요!",
+    "password": 2222
+  },
+  {
+    "title": "졸려요",
+    "author": "잠만보",
+    "contents": "자꾸자꾸 졸려요. 하암",
+    "password": 3333
+  }
+]
+
