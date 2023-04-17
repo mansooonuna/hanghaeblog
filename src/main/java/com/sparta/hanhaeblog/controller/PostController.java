@@ -1,5 +1,6 @@
 package com.sparta.hanhaeblog.controller;
 
+import com.sparta.hanhaeblog.dto.DeleteRequestDto;
 import com.sparta.hanhaeblog.dto.ModifiedResponseDto;
 import com.sparta.hanhaeblog.dto.PostRequestDto;
 import com.sparta.hanhaeblog.dto.PostResponseDto;
@@ -38,7 +39,7 @@ public class PostController {
     }
 
     @DeleteMapping("/post/{id}")
-    public String deletePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
+    public String deletePost(@PathVariable Long id, @RequestBody DeleteRequestDto requestDto) throws Exception {
         return postService.deletePost(id, requestDto);
     }
 }

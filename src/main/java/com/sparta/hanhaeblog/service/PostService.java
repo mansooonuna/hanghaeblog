@@ -1,5 +1,6 @@
 package com.sparta.hanhaeblog.service;
 
+import com.sparta.hanhaeblog.dto.DeleteRequestDto;
 import com.sparta.hanhaeblog.dto.ModifiedResponseDto;
 import com.sparta.hanhaeblog.dto.PostRequestDto;
 import com.sparta.hanhaeblog.dto.PostResponseDto;
@@ -18,12 +19,12 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<PostResponseDto> getPosts() {
         return postRepository.findAllByOrderByCreatedAtDesc().stream().map(PostResponseDto::new).collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public PostResponseDto getPost(Long id) {
         Post post = checkPost(id);
         return new PostResponseDto(post);
@@ -43,19 +44,19 @@ public class PostService {
             post.update(requestDto);
         }
         else {
-            System.out.println("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
         return new ModifiedResponseDto(post);
     }
 
-    public String deletePost(Long id, PostRequestDto requestDto) {
+    public String deletePost(Long id, DeleteRequestDto requestDto) {
         Post post = checkPost(id);
         if(post.getPassword().equals(requestDto.getPassword())) {
             postRepository.delete(post);
             return "게시글을 삭제했습니다.";
         }
         else {
-            return "비밀번호가 일치하지 않습니다.";
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
     }
 
