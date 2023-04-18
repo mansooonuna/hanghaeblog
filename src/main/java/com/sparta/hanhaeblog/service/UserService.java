@@ -20,26 +20,28 @@ public class UserService {
 
     @Transactional
     public void signup(SignupRequestDto signupRequestDto) {
+        String userId = signupRequestDto.getUserId();
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
 
         // 회원 중복 확인
-        Optional<User> found = userRepository.findByUsername(username);
+        Optional<User> found = userRepository.findByUsername(userId);
         if (found.isPresent()) {
             throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
         }
 
-        User user = new User(username, password);
+        User user = new User(userId, username, password);
         userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
     public void login(LoginRequestDto loginRequestDto) {
+        String userId = loginRequestDto.getUserId();
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
         // 사용자 확인
-        User user = userRepository.findByUsername(username).orElseThrow(
+        User user = userRepository.findByUsername(userId).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
 
