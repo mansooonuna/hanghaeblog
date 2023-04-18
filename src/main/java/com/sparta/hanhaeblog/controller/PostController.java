@@ -39,7 +39,7 @@ public class PostController {
     }
 
     @DeleteMapping("/post/{id}")
-    public String deletePost(@PathVariable Long id, @RequestBody DeleteRequestDto requestDto) throws Exception {
+    public String deletePost(@PathVariable Long id, @RequestBody DeleteRequestDto requestDto) {
         return postService.deletePost(id, requestDto);
     }
 }
