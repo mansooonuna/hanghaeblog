@@ -9,16 +9,19 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 public class PostResponseDto {
-    // 여기 선언된 순서대로 출력됨.
+    private Long id;
     private String title;
-    private String username;
     private String contents;
+    private String username;
     private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     public PostResponseDto(Post post) {
+        this.id = post.getId();
         this.title = post.getTitle();
-        this.username = post.getUsername();
         this.contents = post.getContents();
+        this.username = post.getUsername();
         this.createdAt = post.getCreatedAt();
+        this.modifiedAt = post.getModifiedAt();
     }
 }

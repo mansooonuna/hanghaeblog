@@ -32,7 +32,9 @@ public class PostService {
         // 토큰 체크
         User user = checkJwtToken(request);
 
-        Post post = postRepository.saveAndFlush(new Post(requestDto, user.getId()));
+        Post post = new Post(requestDto);
+        post.setUsername(user.getUsername());
+        postRepository.saveAndFlush(post);
         return new PostResponseDto(post);
 
     }
@@ -87,7 +89,7 @@ public class PostService {
         // Request에서 Token 가져오기
         String token = jwtUtil.resolveToken(request);
         Claims claims;
-
+        
         // 토큰이 있는 경우에만 게시글 접근 가능
         if (token != null) {
             if (jwtUtil.validateToken(token)) {
