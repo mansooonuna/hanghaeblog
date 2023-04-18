@@ -1,6 +1,5 @@
 package com.sparta.hanhaeblog.service;
 
-import com.sparta.hanhaeblog.dto.DeleteRequestDto;
 import com.sparta.hanhaeblog.dto.ModifiedResponseDto;
 import com.sparta.hanhaeblog.dto.PostRequestDto;
 import com.sparta.hanhaeblog.dto.PostResponseDto;
@@ -70,7 +69,7 @@ public class PostService {
 
     // 선택한 Post 삭제
     @Transactional
-    public String deletePost(Long id, DeleteRequestDto requestDto, HttpServletRequest request) {
+    public String deletePost(Long id, HttpServletRequest request) {
         // 토큰 체크
         User user = checkJwtToken(request);
 
@@ -99,7 +98,7 @@ public class PostService {
             }
 
             // 토큰에서 가져온 사용자 정보를 사용하여 DB 조회
-            User user = userRepository.findByUserId(claims.getSubject()).orElseThrow(
+            User user = userRepository.findByUsername(claims.getSubject()).orElseThrow(
                     () -> new IllegalArgumentException("사용자가 존재하지 않습니다.")
             );
             return user;
