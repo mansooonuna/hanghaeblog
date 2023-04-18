@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 public class PostResponseDto {
     // 여기 선언된 순서대로 출력됨.
     private String title;
-    private String author;
+    private String username;
     private String contents;
     private LocalDateTime createdAt;
 
     public PostResponseDto(Post post) {
         this.title = post.getTitle();
-        this.author = post.getAuthor();
+        this.username = post.getUserName();
         this.contents = post.getContents();
         this.createdAt = post.getCreatedAt();
     }
