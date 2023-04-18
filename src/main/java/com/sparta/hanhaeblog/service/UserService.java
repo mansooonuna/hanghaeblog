@@ -47,6 +47,9 @@ public class UserService {
     @Transactional(readOnly = true)
     public String login(LoginRequestDto loginRequestDto) {
         String userId = loginRequestDto.getUserId();
+
+        String username = loginRequestDto.getUsername();
+
         String password = loginRequestDto.getPassword();
 
         // 사용자 확인
