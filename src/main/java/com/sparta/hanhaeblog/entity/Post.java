@@ -18,27 +18,21 @@ public class Post extends Timestamped {
     private String title;
 
     @Column(nullable = false)
-    private String userName;
+    private String username;
 
     @Column(nullable = false)
     private String contents;
 
 
-    public Post(String title, String userName, String contents) {
-        this.title = title;
-        this.userName = userName;
-        this.contents = contents;
-    }
-
-    public Post(PostRequestDto requestDto, Long id) {
+    public Post(PostRequestDto requestDto, Long userId) {
         this.title = requestDto.getTitle();
-        this.userName = requestDto.getAuthor();             // TODO : user 엔티티에서 동시에 변경 요청
+        this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
 
     public void update(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
-        this.userName = requestDto.getAuthor();             // TODO : user 엔티티에서 동시에 변경 요청
+        this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
 }

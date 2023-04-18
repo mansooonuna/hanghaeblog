@@ -60,7 +60,7 @@ public class PostService {
         // 토큰 체크
         User user = checkJwtToken(request);
 
-        Post post = postRepository.findByIdAndUserId(id, user.getId()).orElseThrow(
+        Post post = postRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 글이 존재하지 않습니다.")
         );
 
@@ -74,7 +74,7 @@ public class PostService {
         // 토큰 체크
         User user = checkJwtToken(request);
 
-        Post post = postRepository.findByIdAndUserId(id, user.getId()).orElseThrow(
+        Post post = postRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("해당 글이 존재하지 않습니다.")
         );
 

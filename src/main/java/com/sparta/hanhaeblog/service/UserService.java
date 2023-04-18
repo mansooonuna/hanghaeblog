@@ -19,6 +19,7 @@ public class UserService {
 
     @Transactional
     public String signup(SignupRequestDto signupRequestDto) {
+        String userId = signupRequestDto.getUserId();
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
 
@@ -49,7 +50,7 @@ public class UserService {
         String password = loginRequestDto.getPassword();
 
         // 사용자 확인
-        User user = userRepository.findByUsername(username).orElseThrow(
+        User user = userRepository.findByUsername(userId).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
 

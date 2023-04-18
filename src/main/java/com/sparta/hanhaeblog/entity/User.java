@@ -17,12 +17,18 @@ public class User {
     // nullable: null 허용 여부
     // unique: 중복 허용 여부 (false 일때 중복 허용)
     @Column(nullable = false, unique = true)
+    private String userId;
+
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
-    public User(String username, String password) {
+
+
+    public User(String userId, String username, String password) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
     }
