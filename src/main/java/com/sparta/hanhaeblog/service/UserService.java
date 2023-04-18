@@ -24,8 +24,8 @@ public class UserService {
         String password = signupRequestDto.getPassword();
 
         // username은 알파벳 소문자, 숫자
-        if(!Pattern.matches("^[a-z0-9]*$", username)) {
-            return "사용자 이름은 알파벳 소문자, 숫자로 작성해주세요.";
+        if(!Pattern.matches("^[a-z0-9]*$", userId)) {
+            return "아이디는 알파벳 소문자, 숫자로 작성해주세요.";
         }
         // password는 알파벳 대소문자, 숫자
         if(!Pattern.matches("^[a-zA-Z0-9]*$", password)) {
@@ -47,7 +47,9 @@ public class UserService {
     @Transactional(readOnly = true)
     public String login(LoginRequestDto loginRequestDto) {
         String userId = loginRequestDto.getUserId();
+
         String username = loginRequestDto.getUsername();
+
         String password = loginRequestDto.getPassword();
 
         // 사용자 확인
