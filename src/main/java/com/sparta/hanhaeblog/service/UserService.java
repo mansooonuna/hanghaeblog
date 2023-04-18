@@ -38,7 +38,7 @@ public class UserService {
                 throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
             }
 
-            User user = new User(username, password);
+            User user = new User(userId, username, password);
             userRepository.save(user);
             return "회원가입 성공";
         }
@@ -46,6 +46,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public String login(LoginRequestDto loginRequestDto) {
+        String userId = loginRequestDto.getUserId();
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
