@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ModifiedResponseDto {
     private String title;
-    private String author;
+    private String userName;
     private String contents;
     private LocalDateTime modifiedAt;
 
     public ModifiedResponseDto(Post post) {
         this.title = post.getTitle();
-        this.author = post.getAuthor();
+        this.userName = post.getUserName();
         this.contents = post.getContents();
         this.modifiedAt = post.getModifiedAt();
     }
