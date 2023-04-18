@@ -33,7 +33,7 @@ public class UserService {
         }
         else {
             // 회원 중복 확인
-            Optional<User> found = userRepository.findByUsername(username);
+            Optional<User> found = userRepository.findByUserId(userId);
             if (found.isPresent()) {
                 throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
             }
@@ -50,7 +50,7 @@ public class UserService {
         String password = loginRequestDto.getPassword();
 
         // 사용자 확인
-        User user = userRepository.findByUsername(userId).orElseThrow(
+        User user = userRepository.findByUserId(userId).orElseThrow(
                 () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
 
