@@ -4,11 +4,11 @@ import com.sparta.hanhaeblog.dto.DeleteRequestDto;
 import com.sparta.hanhaeblog.dto.ModifiedResponseDto;
 import com.sparta.hanhaeblog.dto.PostRequestDto;
 import com.sparta.hanhaeblog.dto.PostResponseDto;
-import com.sparta.hanhaeblog.entity.Post;
 import com.sparta.hanhaeblog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -29,17 +29,17 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public Post createPost(@RequestBody PostRequestDto requestDto) {
-        return postService.createPost(requestDto);
+    public PostResponseDto createPost(@RequestBody PostRequestDto requestDto, HttpServletRequest request) {
+        return postService.createPost(requestDto, request);
     }
 
     @PutMapping("/post/{id}")
-    public ModifiedResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto) {
-        return postService.update(id, requestDto);
+    public ModifiedResponseDto updatePost(@PathVariable Long id, @RequestBody PostRequestDto requestDto, HttpServletRequest request) {
+        return postService.updatePost(id, requestDto, request);
     }
 
     @DeleteMapping("/post/{id}")
-    public String deletePost(@PathVariable Long id, @RequestBody DeleteRequestDto requestDto) {
-        return postService.deletePost(id, requestDto);
+    public String deletePost(@PathVariable Long id, @RequestBody DeleteRequestDto requestDto, HttpServletRequest request) {
+        return postService.deletePost(id, requestDto, request);
     }
 }
