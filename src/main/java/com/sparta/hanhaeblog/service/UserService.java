@@ -3,40 +3,49 @@ package com.sparta.hanhaeblog.service;
 import com.sparta.hanhaeblog.dto.LoginRequestDto;
 import com.sparta.hanhaeblog.dto.SignupRequestDto;
 import com.sparta.hanhaeblog.entity.User;
-import com.sparta.hanhaeblog.entity.UserRoleEnum;
 import com.sparta.hanhaeblog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-    private static final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     @Transactional
-    public void signup(SignupRequestDto signupRequestDto) {
+    public String signup(SignupRequestDto signupRequestDto) {
         String userId = signupRequestDto.getUserId();
         String username = signupRequestDto.getUsername();
         String password = signupRequestDto.getPassword();
 
-        // 회원 중복 확인
-        Optional<User> found = userRepository.findByUsername(userId);
-        if (found.isPresent()) {
-            throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
+        // username은 알파벳 소문자, 숫자
+        if(!Pattern.matches("^[a-z0-9]*$", username)) {
+            return "사용자 이름은 알파벳 소문자, 숫자로 작성해주세요.";
         }
+        // password는 알파벳 대소문자, 숫자
+        if(!Pattern.matches("^[a-zA-Z0-9]*$", password)) {
+            return "비밀번호는 알파벳 대소문자, 숫자로 작성해주세요.";
+        }
+        else {
+            // 회원 중복 확인
+            Optional<User> found = userRepository.findByUsername(username);
+            if (found.isPresent()) {
+                throw new IllegalArgumentException("중복된 사용자가 존재합니다.");
+            }
 
-        User user = new User(userId, username, password);
-        userRepository.save(user);
+            User user = new User(username, password);
+            userRepository.save(user);
+            return "회원가입 성공";
+        }
     }
 
     @Transactional(readOnly = true)
-    public void login(LoginRequestDto loginRequestDto) {
-        String userId = loginRequestDto.getUserId();
+    public String login(LoginRequestDto loginRequestDto) {
         String username = loginRequestDto.getUsername();
         String password = loginRequestDto.getPassword();
 
@@ -49,5 +58,6 @@ public class UserService {
         if(!user.getPassword().equals(password)){
             throw  new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
+        return "로그인 성공";
     }
 }

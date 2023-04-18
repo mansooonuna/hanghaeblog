@@ -1,38 +1,28 @@
 package com.sparta.hanhaeblog.controller;
-
 import com.sparta.hanhaeblog.dto.LoginRequestDto;
 import com.sparta.hanhaeblog.dto.SignupRequestDto;
 import com.sparta.hanhaeblog.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
 
 @Controller
-
+@RequiredArgsConstructor
+@RequestMapping("api/auth")
 public class UserController {
 
-//    private final UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/signup")
-    public ModelAndView signupPage() {
-        return new ModelAndView("signup");
+    @PostMapping("/signup")
+    public String signup(@Valid SignupRequestDto signupRequestDto) {
+        return userService.signup(signupRequestDto);
     }
 
-    @GetMapping("/login")
-    public ModelAndView loginPage() {
-        return new ModelAndView("login");
+    @PostMapping("/login")
+    public String login(LoginRequestDto loginRequestDto) {
+        return userService.login(loginRequestDto);
     }
-
-//    @PostMapping("/signup")
-//    public String signup(SignupRequestDto signupRequestDto) {
-//        userService.signup(signupRequestDto);
-//        return "redirect:/api/user/login";
-//    }
-//
-//    @PostMapping("/login")
-//    public String login(LoginRequestDto loginRequestDto) {
-//        userService.login(loginRequestDto);
-//        return "redirect:/api/shop";
-//    }
 }
