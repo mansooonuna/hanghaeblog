@@ -27,6 +27,6 @@ public class UserController {
     @PostMapping("/login")
     public String login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         userService.login(loginRequestDto, response);
-        return "로그인에 성공했습니다.";
+        return "로그인 성공";
     }
 }
