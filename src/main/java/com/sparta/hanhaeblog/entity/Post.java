@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
+// setter 사용은 지양해야하나 스프링 시큐리티 적용 전에 username 을 설정하기 위해 사용
 @Setter
 @Entity
 @NoArgsConstructor
@@ -26,6 +27,7 @@ public class Post extends Timestamped {
     private String contents;
 
 
+    // 요구사항에 맞게 글 작성 시 필요 정보는 title, contents
     public Post(PostRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.username = requestDto.getUsername();

@@ -9,6 +9,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
+// 생성일자, 수정일자 자동생성
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
