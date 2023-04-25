@@ -9,6 +9,8 @@ import javax.validation.constraints.Size;
 @Getter
 public class SignupRequestDto {
 
+    // 사이즈를 지정해줌으로서 유효성 검사 가능
+
     // 최소 4자 이상, 10자 이하
     @Size(min = 4, max = 10)
     private String username;
