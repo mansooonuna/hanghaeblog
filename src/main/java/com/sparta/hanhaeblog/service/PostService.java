@@ -32,7 +32,10 @@ public class PostService {
         // 토큰 체크
         User user = checkJwtToken(request);
 
+        // 새로운 post 객체 생성
         Post post = new Post(requestDto);
+        // username은 필수 값인데 함께 전달되지 않아서 임시방편으로 setter 사용하여
+        // 토큰 체크된 사용자의 username을 가져와서 설정해줌
         post.setUsername(user.getUsername());
         postRepository.saveAndFlush(post);
         return new PostResponseDto(post);
@@ -43,14 +46,14 @@ public class PostService {
     // 전체 Post 조회
     @Transactional(readOnly = true)
     public List<PostResponseDto> getPosts() {
-        return postRepository.findAllByOrderByCreatedAtDesc().stream().map(PostResponseDto::new).collect(Collectors.toList());
+        return postRepository.findAllByOrderByCreatedAtDesc().stream().map(PostResponseDto::new).collect(Collectors.toList()); //TODO : 스트림 사용법 숙지
     }
 
     // 선택한 Post 조회
     @Transactional(readOnly = true)
     public PostResponseDto getPost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 글이 존재하지 않습니다.")
+                () -> new NullPointerException("해당 글이 존재하지 않습니다.")
         );
         return new PostResponseDto(post);
     }
@@ -85,6 +88,7 @@ public class PostService {
     }
 
 
+    // 토큰 체크 메소드로 분리
     public User checkJwtToken(HttpServletRequest request) {
         // Request에서 Token 가져오기
         String token = jwtUtil.resolveToken(request);
@@ -96,6 +100,7 @@ public class PostService {
                 // 토큰에서 사용자 정보 가져오기
                 claims = jwtUtil.getUserInfoFromToken(token);
             } else {
+                // 토큰이 없으면 token error 발생
                 throw new IllegalArgumentException("Token Error");
             }
 
